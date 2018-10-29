@@ -17,8 +17,15 @@ class Encoder(nn.Module):
         super(Encoder, self).__init__()
 
         self.z_dim = z_dim
-        self.hidden_layer = None
-        self.output_layer = None
+        self.hidden_layer = nn.Sequential(
+            nn.Linear(3*img_size*img_size, z_dim),
+            nn.BatchNorm1d(z_dim),
+            nn.ReLU(),
+        )
+        self.output_layer = nn.Sequential(
+            nn.Linear(z_dim, z_dim),
+            nn.Tanh(),
+        )
 
         # TODO: Create a nn.Sequential model for each layer in the encoder as
         # described in the assignment specification and assign them to
@@ -40,11 +47,100 @@ class Decoder(nn.Module):
 
         assert img_size==64
         self.z_dim = z_dim
-        self.layer1 = None
-        self.layer2 = None
-        self.layer3 = None
-        self.layer4 = None
-        self.layer5 = None
+        self.layer1 = nn.Sequential(
+            nn.ConvTranspose2d(
+                in_channels=z_dim,
+                out_channels=128,
+                kernel_size=7,
+                stride=1,
+            ),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.Conv2d(
+                in_channels=128,
+                out_channels=128,
+                kernel_size=3,
+                stride=1,
+                padding=1,
+            ),
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+        )
+        self.layer2 = nn.Sequential(
+            nn.ConvTranspose2d(
+                in_channels=128,
+                out_channels=64,
+                kernel_size=3,
+                stride=2,
+            ),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Conv2d(
+                in_channels=64,
+                out_channels=64,
+                kernel_size=3,
+                stride=1,
+                padding=1,
+            ),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+        )
+        self.layer3 = nn.Sequential(
+            nn.ConvTranspose2d(
+                in_channels=64,
+                out_channels=64,
+                kernel_size=3,
+                stride=2,
+            ),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Conv2d(
+                in_channels=64,
+                out_channels=64,
+                kernel_size=3,
+                stride=1,
+                padding=1,
+            ),
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+        )
+        self.layer4 = nn.Sequential(
+            nn.ConvTranspose2d(
+                in_channels=64,
+                out_channels=32,
+                kernel_size=3,
+                stride=2,
+            ),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(
+                in_channels=32,
+                out_channels=32,
+                kernel_size=3,
+                stride=1,
+                padding=1,
+            ),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+        )
+        self.layer5 = nn.Sequential(
+            nn.ConvTranspose2d(
+                in_channels=32,
+                out_channels=32,
+                kernel_size=2,
+                stride=1,
+            ),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(
+                in_channels=32,
+                out_channels=3,
+                kernel_size=1,
+                stride=1,
+                padding=0,
+            ),
+            nn.Tanh(),
+        )
 
         # TODO: Create a nn.Sequential model for each layer in the decoder as
         # described in the assignment specification. Assign them to self.layer1,

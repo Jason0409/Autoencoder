@@ -46,7 +46,7 @@ class TestEncoder(unittest.TestCase):
 
 # test decoder
 class TestDecoder(unittest.TestCase):
-    
+
     def test_size(self):
         """Test that the Decoder produced the correct size output."""
         batch_size = 32
