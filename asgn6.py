@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-#
-# COMP4680/8650: ADVANCED TOPICS IN STATISTICAL MACHINE LEARNING
-# ASSIGNMENT 6
-#
-# DO NOT MODIFY ANYTHING IN THIS FILE
-#
-
 import os
 import argparse
 import numpy as np
