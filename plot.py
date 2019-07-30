@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-#
-# COMP4680/8650: ADVANCED TOPICS IN STATISTICAL MACHINE LEARNING
-#
-# This code allows you to plot data, such as training loss, loaded
-# from a file. You can also save the plot.
-#
-
 import argparse
 import matplotlib.pyplot as plt
 
