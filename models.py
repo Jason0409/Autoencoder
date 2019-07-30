@@ -21,12 +21,6 @@ class Encoder(nn.Module):
             nn.Tanh(),
         )
 
-        # TODO: Create a nn.Sequential model for each layer in the encoder as
-        # described in the assignment specification and assign them to
-        # self.hidden_layer and self.output_layer.
-
-
-
     def forward(self, x):
         x = x.view(x.size()[0], -1)
         x = self.output_layer(self.hidden_layer(x))
@@ -135,12 +129,6 @@ class Decoder(nn.Module):
             ),
             nn.Tanh(),
         )
-
-        # TODO: Create a nn.Sequential model for each layer in the decoder as
-        # described in the assignment specification. Assign them to self.layer1,
-        # self.layer2, etc. The test_models.py script will help you check that
-        # you got the layers correct.
-
 
 
     def forward(self, x):
